@@ -2,7 +2,8 @@
   <div class="container">
     <button class="btn btn--start" @click="onStartClick()">
       <span v-if="!cards.length">Start</span>
-      <span v-else>Re-start</span>
+      <!-- <span v-else>Re-start</span> -->
+      <span v-else>{{ time }}</span>
     </button>
     <div class="content">
       <div
@@ -29,6 +30,7 @@ export default {
   data () {
     return {
       maxPairs: 9,
+      maxTimer: 20,
       items: [
         { imageSrc: require('../assets/images/items/drop1-sunglasses (1).jpg') },
         { imageSrc: require('../assets/images/items/large-logo-printed-blanket.jpg') },
@@ -55,7 +57,8 @@ export default {
       ],
       cards: [],
       selected: null,
-      preview: null
+      preview: null,
+      time: null
     }
   },
   computed: {
@@ -80,6 +83,11 @@ export default {
       })
 
       this.cards = this._shuffle(selectedPairs)
+
+      this._runTimer()
+      window.setTimeout(() => {
+        this._reset()
+      }, this.maxTimer * 1000)
     },
     _shuffle (items) {
       for (let i = items.length - 1; i > 0; i--) {
@@ -91,6 +99,7 @@ export default {
       return items
     },
     _reset () {
+      this.start = null
       this.selected = null
       this.preview = null
       this.cards = []
@@ -118,6 +127,17 @@ export default {
       window.setTimeout(() => {
         this._generateCards()
       })
+    },
+    _runTimer () {
+      const run = () => {
+        if (this.time <= 0) { return }
+        window.setTimeout(() => {
+          this.time = this.time - 1
+          run()
+        }, 1000)
+      }
+      this.time = this.maxTimer
+      run()
     }
   }
 }
