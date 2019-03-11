@@ -3,7 +3,7 @@
     <button class="btn btn--start" @click="onStartClick()">
       <span v-if="!cards.length">Start</span>
       <!-- <span v-else>Re-start</span> -->
-      <span v-else>{{ time }}</span>
+      <span v-else>{{ timeStr }}</span>
     </button>
     <div class="content">
       <div
@@ -30,7 +30,7 @@ export default {
   data () {
     return {
       maxPairs: 9,
-      maxTimer: 20,
+      maxTimer: 90,
       items: [
         { imageSrc: require('../assets/images/items/drop1-sunglasses (1).jpg') },
         { imageSrc: require('../assets/images/items/large-logo-printed-blanket.jpg') },
@@ -65,6 +65,15 @@ export default {
     selectedCard () {
       if (!this.selected) { return null }
       return this.cards[this.selected] || null
+    },
+    timeStr () {
+      if (this.time === null) { return null }
+      let minutes = Math.floor(this.time / 60)
+      let seconds = this.time % 60
+      if (`${seconds}`.length === 1) {
+        seconds = `0${seconds}`
+      }
+      return `${minutes}:${seconds}`
     }
   },
   methods: {
