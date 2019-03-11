@@ -32,13 +32,12 @@ export default {
   data () {
     return {
       lost: false,
-      win: false,
+      won: false,
       time: null,
       maxTimer: 90,
-      maxItems: 12,
+      maxItems: 18,
       displayItems: [],
       items: [
-        { imageSrc: require('../assets/images/sneakers/air-max-720-royal-blue-.jpg'), nike: true },
         { imageSrc: require('../assets/images/sneakers/air-wildwood-sneakers.jpg'), nike: true },
         { imageSrc: require('../assets/images/sneakers/air-zoom-alpha-sneakers.jpg'), nike: true },
         { imageSrc: require('../assets/images/sneakers/blazer-mid-77-vintage-sneakers.jpg'), nike: true },
@@ -48,12 +47,15 @@ export default {
         { imageSrc: require('../assets/images/sneakers/kid-cudi-tennis-minimal-sneakers.jpg'), nike: false },
         { imageSrc: require('../assets/images/sneakers/modernica-style-36-lx-sneakers.jpg'), nike: false },
         { imageSrc: require('../assets/images/sneakers/nite-jogger-grey-pack-sneakers.jpg'), nike: false },
-        { imageSrc: require('../assets/images/sneakers/react-element-55-sneakers.jpg'), nike: true },
         { imageSrc: require('../assets/images/sneakers/rom-sneakers.jpg'), nike: false },
         { imageSrc: require('../assets/images/sneakers/sankuanz-rs-x-sneakers.jpg'), nike: false },
         { imageSrc: require('../assets/images/sneakers/uproar-hybrid-court-asg-fade-sneakers.jpg'), nike: false },
         { imageSrc: require('../assets/images/sneakers/yung-1-sneakers.jpg'), nike: false },
-        { imageSrc: require('../assets/images/sneakers/rains-sk8-hi-lite-sneakers.jpg'), nike: false }
+        { imageSrc: require('../assets/images/sneakers/rains-sk8-hi-lite-sneakers.jpg'), nike: false },
+        { imageSrc: require('../assets/images/sneakers/anaheim-factory-sk8-hi-sneakers.jpg'), nike: false },
+        { imageSrc: require('../assets/images/sneakers/kaiwa-sneakers.jpg'), nike: false },
+        { imageSrc: require('../assets/images/sneakers/golf-le-fleur-ox-sneakers.jpg'), nike: false },
+        { imageSrc: require('../assets/images/sneakers/jogger-sneakers.jpg'), nike: false }
       ]
     }
   },
@@ -104,16 +106,17 @@ export default {
     onCardClick (index) {
       if (this.lost || this.won) { return }
       if (!this.displayItems[index].nike) {
-        this._loose()
+        // this._loose()
       }
       this.displayItems[index].active = true
       let count = 0
       this.displayItems.forEach(item => {
         if (item.nike) {
           count = count + 1
-        }
-        if (item.active) {
-          count = count - 1
+
+          if (item.active) {
+            count = count - 1
+          }
         }
       })
       if (count === 0) {
@@ -160,6 +163,7 @@ export default {
 <style lang="scss" scoped>
 
 $card-width: 15rem;
+$card-height: 15rem;
 $card-gap: 1rem;
 
 .container {
@@ -188,7 +192,7 @@ $card-gap: 1rem;
 .card {
   position: relative;
   width: $card-width;
-  height: 20rem;
+  height: $card-height;
   perspective: 100rem;
   margin: $card-gap;
   cursor: pointer;
@@ -200,12 +204,13 @@ $card-gap: 1rem;
   &__face {
     position: absolute;
     top: 0;
-    width: 15rem;
-    height: 20rem;
+    width: $card-width;
+    height: $card-height;
     transition: 0.5s ease;
     backface-visibility: hidden;
     box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.3);
     border-radius: 0.5rem;
+    overflow: hidden;
 
     &--front {
       background-color: #fff;

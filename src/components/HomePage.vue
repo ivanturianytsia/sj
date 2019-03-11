@@ -155,6 +155,7 @@ export default {
 <style lang="scss" scoped>
 
 $card-width: 15rem;
+$card-height: 15rem;
 $card-gap: 1rem;
 
 .container {
@@ -183,7 +184,7 @@ $card-gap: 1rem;
 .card {
   position: relative;
   width: $card-width;
-  height: 20rem;
+  height: $card-height;
   perspective: 100rem;
   margin: $card-gap;
   cursor: pointer;
@@ -195,12 +196,13 @@ $card-gap: 1rem;
   &__face {
     position: absolute;
     top: 0;
-    width: 15rem;
-    height: 20rem;
+    width: $card-width;
+    height: $card-height;
     transition: 1s ease;
     backface-visibility: hidden;
     box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.3);
     border-radius: 0.5rem;
+    overflow: hidden;
 
     &--front {
       background-color: #000;
