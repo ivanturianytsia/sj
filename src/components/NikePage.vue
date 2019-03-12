@@ -19,8 +19,8 @@
           <img class="card__image" :src="item.imageSrc" alt="">
         </div>
         <div class="card__face card__face--back">
-          <span v-if="item.nike">✅</span>
-          <span v-if="!item.nike">❌</span>
+          <font-awesome-icon v-if="item.nike" class="card__icon card__icon--green" icon="check"></font-awesome-icon>
+          <font-awesome-icon v-if="!item.nike" class="card__icon card__icon--red" icon="times"></font-awesome-icon>
         </div>
       </div>
     </div>
@@ -240,6 +240,18 @@ $card-gap: 1rem;
     width: 100%;
     height: 100%;
     object-fit: contain;
+  }
+
+  &__icon {
+    font-size: 5rem;
+
+    &--green {
+      color: #62b088;
+    }
+
+    &--red {
+      color: #c90746;
+    }
   }
 }
 </style>
